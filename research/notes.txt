@@ -1,3 +1,23 @@
+==== 1608.03981v1_Residual_Learning_DeepCnn_Image_Denoising
+Main ideas: DnCNN (https://github.com/cszn/DnCNN)
+! predict noise (RI=Residual Image)
+- Conv, Relu, BN, "Rescon"^, noPool
+- set depth by desired receptive field size
+- Blind Gaussian Denoising: all noise levels at once
+- single model for 3 tasks: DN, SISR, JPEG Deblocking
+Ablation: BN, RI is good
+Comparison: SOTA/nearSOTA PSNR&SSIM + better visual quality
+== EXTRA
+- BN vs noBN > SGD vs Adam
+- Full train/eval setup
+Datasets Train: BSD68
+Datasets Test: 
+- DN: BSD68,12testimg
+- SISR: Set5,Set14,BSD100,Urban100
+- JPEG: Classic5,LIVE1
+VisualQuality: sharp edges, fine details, good smooth regions, natural colour
+====
+
 ==== 1812.10477v1_Residual_Dense_Networks_Image_Restoration
 Main ideas: RDN (https://github.com/yulunzhang/RDN)
 - Conv, Relu, Concat, Rescon is all you need (no BN, Pool)
