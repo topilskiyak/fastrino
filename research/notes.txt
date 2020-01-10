@@ -33,3 +33,20 @@ Less parameters than SOTAs, faster inference.
 Pretty impressive SR - sharper images, more detail. "Jointly denoise and SR"
 ====
 
+==== 1905.12281v0_GraphConv_Image_Denoising
+Main ideas: GraphConv = local CNN + non-local Aggregation
+Non-local Aggregation:
+- pixel -> feature vector (V) -> topk l2-closest pixels for aggregation
+- V' = Dense(V) + mean F(V_nln - V) @ V_nln | nln = non-local neighbour in topk
+- F:dV->{f:V->V'} turns deltas to functions converting old vecs to new
+! vanilla F ~ n^3 params -> overfits }> stack row-subsampled circular matrices (???)
+Net Architechture: 
+- ResConn input-output, blockinput-blockoutput
+- Input=Conv(3x3,5x5,7x7)>R>GCwNLG>BN>R>Concat
+- Use single NLG for 3 GC in block: Block=NLG>3x[GC>BN>R] 
+- NLG - non-local graph construction operation
+- GC=(Conv1x1,Conv3x3,NonlocalAggr)>Average
+Train: BSD500; Test: 12testimg
+Results: AT BEST +0.05-0.1 PSNR over SOTA (DnCNN-S)
+====
+
