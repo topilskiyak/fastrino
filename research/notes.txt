@@ -1,0 +1,15 @@
+==== 1812.10477v1_Residual_Dense_Networks_Image_Restoration
+Main ideas: RDN (https://github.com/yulunzhang/RDN)
+- Conv, Relu, Concat, Rescon is all you need (no BN, Pool)
+- resconnect and concant as much as possible
+- RDN(DN)=LQ>Conv(F-1)>RDB>...>RDB(FD)=>ConcatConv1x1>Conv>Res[+F-1]>Conv>Res[+LQ]
+- RDB=Input>ConvRelu>...>ConvRelu=>ConcatConv1x1>Res[+Input]
+- LFF=Concat+Conv1x1 for train stabilization instead of BN
+- SR features from LR instead of upscaled HR
+- (losses) L1 > L2
+Ablation: everything (CM, LRL, GFF) is good.
+Comparisons on SR, DN, CAR: new SOTA PSNR&SSIM (BI2x-8x,Set5,Set14,etc), improvements visually.
+Less parameters than SOTAs, faster inference.
+Pretty impressive SR - sharper images, more detail. "Jointly denoise and SR"
+====
+
